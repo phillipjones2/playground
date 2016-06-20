@@ -11,10 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160618020724) do
+ActiveRecord::Schema.define(version: 20160618143619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "movies", force: :cascade do |t|
+    t.string   "title"
+    t.string   "image"
+    t.string   "release_year"
+    t.string   "plot"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "user_id"
+  end
+
+  add_index "movies", ["user_id"], name: "index_movies_on_user_id", using: :btree
+
+  create_table "parts", force: :cascade do |t|
+    t.integer  "movie_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "parts", ["movie_id"], name: "index_parts_on_movie_id", using: :btree
+  add_index "parts", ["user_id"], name: "index_parts_on_user_id", using: :btree
 
   create_table "reservations", force: :cascade do |t|
     t.string   "name"
@@ -39,7 +61,15 @@ ActiveRecord::Schema.define(version: 20160618020724) do
     t.string   "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "part_id"
+    t.integer  "movie_id"
   end
 
+  add_index "users", ["movie_id"], name: "index_users_on_movie_id", using: :btree
+  add_index "users", ["part_id"], name: "index_users_on_part_id", using: :btree
+
+  add_foreign_key "movies", "users"
   add_foreign_key "tweets", "users"
+  add_foreign_key "users", "movies"
+  add_foreign_key "users", "parts"
 end

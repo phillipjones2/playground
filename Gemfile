@@ -21,6 +21,7 @@ gem 'bootstrap-sass', '~> 3.3.5'
 gem 'autoprefixer-rails'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.37'
+gem 'font-awesome-rails'
 
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

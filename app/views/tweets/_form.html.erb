@@ -1,4 +1,5 @@
 <%= form_for(@tweet) do |f| %>
+
   <% if @tweet.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@tweet.errors.count, "error") %> prohibited this tweet from being saved:</h2>
@@ -11,15 +12,26 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :status %><br>
-    <%= f.text_field :status %>
+
+<div class="field form-group">
+  <div class="row">
+      <%= f.label :status, class: 'col-sm-1 col-xs-offset-1 control-label' %>
+      <div class="col-sm-4">
+        <%= f.text_area :status, class: 'form-control' %>
+      </div>
   </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
+</div>
+<div class="field form-group">
+  <div class="row">
+    <%= f.label :user_id, class: 'col-sm-1 col-xs-offset-1 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :user_id, class: 'form-control' %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
+<div class="actions form-group">
+  <div class="row">
+    <div class="col-sm-offset-2 col-sm-4">
+      <%= f.submit class:'btn btn-xs btn-success' %>
+      <%= link_to 'All Tweets', tweets_path, class:'btn btn-xs btn-primary' %>
+      <% end %>
