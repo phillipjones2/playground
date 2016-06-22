@@ -1,4 +1,4 @@
-<%= form_for(@reservation) do |f| %>
+<%= simple_form_for(@reservation) do |f| %>
   <% if @reservation.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@reservation.errors.count, "error") %> prohibited this reservation from being saved:</h2>
@@ -13,20 +13,13 @@
 
   <div class="field">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.input :name %>
   </div>
   <div class="field">
-    <%= f.label :reservation_datetime %><br>
-    <%= f.datetime_select :reservation_datetime %>
+    <%= f.date_field :r_date %>
   </div>
   <div class="field">
-    <%= f.label :reservation_date %><br>
-    <%= f.date_select :reservation_date %>
-
-  </div>
-  <div class="field">
-    <%= f.label :reservation_time %><br>
-    <%= f.time_select :reservation_time, discard_minute: true %>
+    <%= f.select :r_time, (0..24).map {|i| [i,i.to_s] } %>
   </div>
   <div class="actions">
     <%= f.submit %>

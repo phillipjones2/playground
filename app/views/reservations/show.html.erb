@@ -6,8 +6,13 @@
 </p>
 
 <p>
+  <strong>Reservation date:</strong>
+  <%= @reservation.r_date %>
+</p>
+
+<p>
   <strong>Reservation time:</strong>
-  <%= @reservation.reservation_time %>
+  <%= @reservation.r_time %>
 </p>
 
 <%= link_to 'Edit', edit_reservation_path(@reservation) %> |

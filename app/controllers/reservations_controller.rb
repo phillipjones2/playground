@@ -23,11 +23,16 @@ class ReservationsController < ApplicationController
 
   # POST /reservations
   # POST /reservations.json
-  def create
-    @reservation = Reservation.new(reservation_params)
+  #@user.brithdate = Date.new(params[:user]["birthdate(1i)"].to_i,params[:user]["birthdate(2i)"].to_i,params[:user]["birthdate(3i)"].to_i)
+  #:reservation_datetime, :reservation_date, :reservation_time
 
-    respond_to do |format|
-      if @reservation.save
+  def create
+    #@reservation.reservation_date = Date.new(params[:reservation]["reservation_date(1i)"].to_i,params[:reservation]["reservation_date(2i)"].to_i,params[:reservation]["reservation_date(3i)"].to_i)
+    @reservation= Reservation.new(reservation_params)
+    if @reservation.where(r_date:(params[:r_date]),r_time:(params[:r_time])).count > 3
+      redirect_to :new, notice: "Sorry, no available tables at that date/time"
+      respond_to do |format|
+    elsif @reservation.save
         format.html { redirect_to @reservation, notice: 'Reservation was successfully created.' }
         format.json { render :show, status: :created, location: @reservation }
       else
@@ -36,6 +41,7 @@ class ReservationsController < ApplicationController
       end
     end
   end
+
 
   # PATCH/PUT /reservations/1
   # PATCH/PUT /reservations/1.json
@@ -69,6 +75,6 @@ class ReservationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def reservation_params
-      params.require(:reservation).permit(:name, :reservation_time)
+      params.require(:reservation).permit(:name, :r_date, :r_time)
     end
 end
