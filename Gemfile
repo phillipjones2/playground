@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-
+ruby '2.3.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
 # Use sqlite3 as the database for Active Record
@@ -22,6 +22,11 @@ gem 'autoprefixer-rails'
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.37'
 gem 'font-awesome-rails'
+
+gem 'rspec', '3.1'
+gem 'rspec-rails', '3.1'
+gem 'rspec-context-private', '0.0.1'
+gem 'rspec-html-matchers', '0.6.1'
 
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
