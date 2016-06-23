@@ -1,8 +1,14 @@
 class Reservation < ActiveRecord::Base
+  before_save :check_availability
 
-  def booked(params)
-    Reservation.where(r_date:params[:r_date],r_time:params[:r_time]).count < 3
+
+  private
+
+  def check_availability
+    reservation_count = Reservation.where(r_date:self.r_date,r_time:self.r_time).count
+    if reservation_count >= 3
+      return false
+    end
   end
-
 
 end

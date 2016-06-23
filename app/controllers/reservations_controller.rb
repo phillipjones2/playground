@@ -23,24 +23,23 @@ class ReservationsController < ApplicationController
 
   # POST /reservations
   # POST /reservations.json
-  #@user.brithdate = Date.new(params[:user]["birthdate(1i)"].to_i,params[:user]["birthdate(2i)"].to_i,params[:user]["birthdate(3i)"].to_i)
-  #:reservation_datetime, :reservation_date, :reservation_time
 
   def create
-    #@reservation.reservation_date = Date.new(params[:reservation]["reservation_date(1i)"].to_i,params[:reservation]["reservation_date(2i)"].to_i,params[:reservation]["reservation_date(3i)"].to_i)
     @reservation= Reservation.new(reservation_params)
-    if @reservation.where(r_date:(params[:r_date]),r_time:(params[:r_time])).count > 3
-      redirect_to :new, notice: "Sorry, no available tables at that date/time"
       respond_to do |format|
-    elsif @reservation.save
-        format.html { redirect_to @reservation, notice: 'Reservation was successfully created.' }
-        format.json { render :show, status: :created, location: @reservation }
-      else
-        format.html { render :new }
-        format.json { render json: @reservation.errors, status: :unprocessable_entity }
+        if @reservation.save
+          flash[:success] = 'Reservation was successfully created.'
+          format.html { redirect_to @reservation, notice: 'Reservation was successfully created.' }
+          format.json { render :show, status: :created, location: @reservation }
+        else
+          flash[:danger] = 'Your reservation was NOT saved'
+          format.html { render :index }
+          format.json { render json: @reservation.errors, status: :unprocessable_entity }
+        end
       end
     end
-  end
+
+#if @reservation.where(r_date:(params[:r_date]),r_time:(params[:r_time])).count < 3
 
 
   # PATCH/PUT /reservations/1
@@ -77,4 +76,5 @@ class ReservationsController < ApplicationController
     def reservation_params
       params.require(:reservation).permit(:name, :r_date, :r_time)
     end
+
 end
